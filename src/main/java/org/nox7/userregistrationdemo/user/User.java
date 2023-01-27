@@ -1,7 +1,10 @@
 package org.nox7.userregistrationdemo.user;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
+@Entity(name="`user`")
 public class User {
     private Long id;
     private String firstName;
