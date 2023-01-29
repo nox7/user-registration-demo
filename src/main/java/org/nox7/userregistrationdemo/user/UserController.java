@@ -1,9 +1,7 @@
 package org.nox7.userregistrationdemo.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +19,11 @@ public class UserController {
     @GetMapping("/list")
     public List<User> listUsers(){
         return userService.listUsers();
+    }
+
+    @PostMapping("/add")
+    public void addUser(@RequestBody User user){
+        userService.addNewUser(user);
     }
 
 }
