@@ -3,6 +3,7 @@ package org.nox7.userregistrationdemo.user;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity(name="`user`")
 @Table
@@ -22,7 +23,8 @@ public class User {
     private String email;
     private LocalDate registrationDate;
     private Integer registrationTimestamp;
-    private Integer age;
+    @Transient
+    private Integer accountAge;
 
     public User(){
 
@@ -32,26 +34,22 @@ public class User {
                 String firstName,
                 String email,
                 LocalDate registrationDate,
-                Integer registrationTimestamp,
-                Integer age) {
+                Integer registrationTimestamp) {
         this.id = id;
         this.firstName = firstName;
         this.email = email;
         this.registrationDate = registrationDate;
         this.registrationTimestamp = registrationTimestamp;
-        this.age = age;
     }
 
     public User(String firstName,
                 String email,
                 LocalDate registrationDate,
-                Integer registrationTimestamp,
-                Integer age) {
+                Integer registrationTimestamp) {
         this.firstName = firstName;
         this.email = email;
         this.registrationDate = registrationDate;
         this.registrationTimestamp = registrationTimestamp;
-        this.age = age;
     }
 
     public Long getId() {
@@ -74,8 +72,8 @@ public class User {
         return registrationTimestamp;
     }
 
-    public Integer getAge() {
-        return age;
+    public Integer getAccountAge() {
+        return Period.between(this.registrationDate, LocalDate.now()).getDays() * 86400;
     }
 
     public void setId(Long id) {
@@ -98,8 +96,8 @@ public class User {
         this.registrationTimestamp = registrationTimestamp;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setAccountAge(Integer age) {
+        this.accountAge = accountAge;
     }
 
     @Override
@@ -110,7 +108,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", registrationDate=" + registrationDate +
                 ", registrationTimestamp=" + registrationTimestamp +
-                ", age=" + age +
+                ", accountAge=" + accountAge +
                 '}';
     }
 }
